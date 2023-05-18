@@ -112,5 +112,29 @@ sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/c
 sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/model/cbi/v2ray_server/*.lua
 sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/view/v2ray_server/*.htm
 
+# qBittorrent
+sed -i 's/zh/zh_CN/g' feeds/luci/applications/luci-app-qbittorrent/root/etc/config/qbittorrent
+
+rm -f feeds/luci/applications/luci-app-ttyd/luasrc/view/terminal/terminal.htm
+wget -P feeds/luci/applications/luci-app-ttyd/luasrc/view/terminal https://xiaomeng9597.github.io/terminal.htm
+
+# samba4
+#sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=4.14.13/g' feeds/packages/net/samba4/Makefile
+#sed -i 's/PKG_HASH:=.*/PKG_HASH:=e1df792818a17d8d21faf33580d32939214694c92b84fb499464210d86a7ff75/g' feeds/packages/net/samba4/Makefile
+rm -rf feeds/packages/net/samba4
+svn co https://github.com/openwrt/packages/trunk/net/samba4 feeds/packages/net/samba4
+
+# php8
+#rm -rf feeds/packages/lang/php8
+#svn co https://github.com/openwrt/packages/trunk/lang/php8 feeds/packages/lang/php8
+sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=8.2.3/g' feeds/packages/lang/php8/Makefile
+sed -i 's/PKG_HASH:=.*/PKG_HASH:=b9b566686e351125d67568a33291650eb8dfa26614d205d70d82e6e92613d457/g' feeds/packages/lang/php8/Makefile
+
+# gzip
+sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=1.12/g' feeds/packages/utils/gzip/Makefile
+sed -i 's/PKG_RELEASE:=.*/PKG_RELEASE:=1/g' feeds/packages/utils/gzip/Makefile
+sed -i 's/PKG_HASH:=.*/PKG_HASH:=ce5e03e519f637e1f814011ace35c4f87b33c0bbabeec35baf5fbd3479e91956/g' feeds/packages/utils/gzip/Makefile
+
+
 ./scripts/feeds update -a
 ./scripts/feeds install -a
